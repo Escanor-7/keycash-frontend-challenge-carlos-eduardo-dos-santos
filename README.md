@@ -1,5 +1,8 @@
 # Key Imóveis
 
+Veja a aplicação em produção:
+[Link](https://keycash-frontend-challenge-carlos-eduardo-dos-santos-l5r02rd1d.vercel.app/)
+
 ## Instruções da aplicação
 
 Na pasta do projeto, execute:
@@ -13,7 +16,7 @@ Abra [http://localhost:3000](http://localhost:3000) para visualizá-la no navega
 
 ### `yarn build`
 
-Compila a aplicação para produção na pasta `build`.\
+Compila a aplicação para produção na pasta `build`.
 
 Com isso a aplicação está pronta para o deploy!
 * Vercel foi a ferramenta utilizada para realizar o deploy.
