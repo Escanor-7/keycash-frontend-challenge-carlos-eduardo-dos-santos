@@ -3,6 +3,8 @@
 ## Instruções da aplicação
 
 Na pasta do projeto, execute:
+### `yarn ou npm install`
+Esse comando irá instalar as dependências da aplicação.
 
 ### `yarn start`
 

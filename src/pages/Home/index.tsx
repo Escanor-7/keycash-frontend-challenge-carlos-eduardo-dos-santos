@@ -52,6 +52,7 @@ export const Home = () => {
         .catch((err) => console.log('Request error', err))
     }
     getProperties();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
