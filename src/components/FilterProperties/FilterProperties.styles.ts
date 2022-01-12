@@ -7,7 +7,7 @@ export const FilterContainer = styled.div`
   align-items: center;
 
   @media(min-width:900px) {
-    width: 40%;
+    width: 30%;
     align-items: center;
   }
 `;

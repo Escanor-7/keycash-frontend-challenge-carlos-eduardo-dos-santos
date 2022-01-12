@@ -7,45 +7,42 @@ export const Column = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  /* background-color: #e0e0e0; */
   flex-direction: column;
   width: 95%;
 
-  /* Arrows carousel config */
-  div.rec-carousel {
-    button.rec-arrow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 30px;
-      height: 30px;
-      font-size: 1.5rem;
-      border: 1px solid var(--light-gray);
-      color: var(--light-gray);
-      min-width: fit-content;
+  @media(min-width:900px) {
+    width: 60%;
+  }
+`;
 
-      &:first-child {
-        margin-left: 1rem;
-      }
+export const PaginationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
-      &:last-child {
-        margin-right: 1rem;
-      }
-
-      &:hover {
-        background-color: var(--light-gray);
-        color: var(--white-ice);
-      }
-
-      &:focus {
-        background-color: var(--light-gray);
-        color: var(--white-ice);
-      }
-    }
+  label {
+    color: var(--navy-blue);
+    font-weight: 600;
+    font-size: 0.9rem;
   }
 
-  @media(min-width:900px) {
-    width: 50%;
+  select {
+    width: 115px;
+    background-color: var(--white);;
+    text-align: center;
+    border-radius: 0.25rem;
+    border: 2px solid var(--navy-blue);
+    color: var(--navy-blue);
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.8;
+    outline: none;
+    margin-bottom: 0.1rem;
+    
+    option {
+      cursor: pointer;
+      border-radius: 0.25rem;
+    }
   }
 `;
 
@@ -61,21 +58,10 @@ export const PropertiesCard = styled.div`
   -webkit-box-shadow: 0px 0px 15px 5px rgba(99,113,135,0.45); 
   box-shadow: 0px 0px 10px 2px #cccccc;
 
-  img {
-    width: 100%;
-    height: 250px;
-    margin-bottom: 0.4rem;
-    border-radius: 0.1rem;
-  }
-
   @media(min-width:600px) {
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 0;
     display: flex;
     flex-direction: row;
-
-    img {
-      width: 50%;
-    }
   }
 `;
 

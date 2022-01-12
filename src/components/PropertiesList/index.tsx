@@ -1,68 +1,70 @@
-import { useEffect, useState } from "react"
-import axios from 'axios';
+import { useEffect, useState, useContext } from "react"
 import * as S from './PropertiesList.styles';
-import Carousel from 'react-elastic-carousel';
+import { usePropertyContext } from "../../context/UsePropertiesContext";
+import { ImageCarousel } from "../ImageCarousel";
+
+export type PropertiesListProps = {
+  id: string;
+  price: number;
+  bedrooms: number;
+  bathrooms: number;
+  address: {
+    formattedAddress: string;
+  };
+  parkingSpaces: number;
+  usableArea: number;
+  publish: boolean;
+  images: [],
+}
 
 export const PropertiesList = () => {
-  const [properties, setProperties] = useState([]);
+  const { filteredProperties } = useContext(usePropertyContext);
+  const [itemsPerPagination, setItemsPerPagination] = useState(5);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  // pagination logic
+  const startIndex = currentPage * itemsPerPagination;
+  const endIndex = startIndex + itemsPerPagination;
+  const currentItems = filteredProperties.slice(startIndex, endIndex);
 
   useEffect(() => {
-    const getProperties = async () => {
-      await axios.get('http://5e148887bce1d10014baea80.mockapi.io/keycash/challenge', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((res) => setProperties(res.data))
-        .catch((err) => console.log('Erro na req', err))
-    }
-    getProperties();
-  })
+    setCurrentPage(0);
+  }, [itemsPerPagination])
 
-  const scrollCardSettings = {
-    isRTL: false,
-    itemsToShow: 4,
-    itemsToScroll: 1,
-    pagination: false,
-
-    settingCarouselBreakpoints: [
-      { width: 360, itemsToShow: 1, enableSwipe: true },
-      { width: 500, itemsToShow: 2 },
-      { width: 800, itemsToShow: 3 },
-      { width: 1080, itemsToShow: 4, enableSwipe: false }
-    ]
+  const handleConvertPrice = (value: number) => {
+    return value.toLocaleString('br-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })
   }
 
   return (
     <S.Container>
-      {/* <Carousel
-        isRTL={scrollCardSettings.isRTL}
-        itemsToShow={scrollCardSettings.itemsToShow}
-        pagination={scrollCardSettings.pagination}
-        breakPoints={scrollCardSettings.settingCarouselBreakpoints}
-      > */}
-      {properties.map((property: any) => {
+
+      <S.PaginationContainer>
+        <label>Itens por página</label>
+        <select value={itemsPerPagination} onChange={(e) => setItemsPerPagination(Number(e.currentTarget.value))} >
+          <option value={5} >5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+        </select>
+      </S.PaginationContainer>
+
+      {currentItems.map((property: PropertiesListProps) => {
+        const { id, images, price, address, bedrooms, bathrooms, usableArea, parkingSpaces } = property;
         return (
-          <S.PropertiesCard key={property.id} >
-            {/* <S.AlignCenter> */}
-              <img
-                src={property.images[0]}
-                alt="property-img"
-              />
-            {/* </S.AlignCenter> */}
+          <S.PropertiesCard key={id} >
+            <ImageCarousel images={images} />
+
             <S.Column>
-              <S.DescriptionTitle><span>Preço:</span> {property.price}</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Endereço:</span> {property.address.formattedAddress}</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Quartos:</span> {property.bedrooms}</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Banheiros:</span> {property.bathrooms}</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Endereço:</span> {property.address.formattedAddress}</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Área:</span> {property.usableArea} m2</S.DescriptionTitle>
-              <S.DescriptionTitle><span>Vagas de estacionamento:</span> {property.parkingSpaces}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Preço:</span> {handleConvertPrice(price)}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Endereço:</span> {address.formattedAddress}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Quartos:</span> {bedrooms}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Banheiros:</span> {bathrooms}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Endereço:</span> {address.formattedAddress}</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Área:</span> {usableArea} m²</S.DescriptionTitle>
+              <S.DescriptionTitle><span>Vagas de estacionamento:</span> {parkingSpaces}</S.DescriptionTitle>
             </S.Column>
           </S.PropertiesCard>
         )
       })}
-      {/* </Carousel> */}
     </S.Container >
   )
 }

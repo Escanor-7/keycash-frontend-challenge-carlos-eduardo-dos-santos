@@ -1,5 +1,5 @@
 import * as S from './Header.styles';
-import keyPropertiesLogo from '../../assets/logo.svg';
+import keyPropertiesLogo from '../../assets/key-imoveis-logo.png';
 
 export const Header = () => {
 

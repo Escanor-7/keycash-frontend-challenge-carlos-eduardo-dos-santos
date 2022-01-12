@@ -10,19 +10,7 @@ export const Container = styled.header`
   margin-bottom: 2rem;
 
   img {
-    width: 215px;
-    border-radius: 1px;
-  }
-
-  @media(min-width:600px) {
-    img {
-      width: 215px;
-    }
-  }
-
-  @media(min-width:720px) {
-    img {
-      width: 230px;
-    }
+    width: 200px;
+    height: 110px;
   }
 `;
